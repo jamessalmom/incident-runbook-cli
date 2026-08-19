@@ -1,0 +1,13 @@
+title: PIX settlement latency spike
+severity: high
+triggers:
+  - "p99 settlement latency > 5s for 3 consecutive minutes"
+  - "alert: SPI_LATENCY_HIGH"
+steps:
+  - description: Confirm the alert against the latency dashboard
+  - description: Check recent deploys in the last 30 minutes
+    command: "git log --since='30 minutes ago' --oneline"
+  - description: Query recent settlement latency by participant
+    command: "SELECT participant, AVG(latency_ms) FROM settlements WHERE ts > now() - interval '15 minutes' GROUP BY participant;"
+  - description: If isolated to one participant, notify their integration channel
+escalation: "If unresolved in 15 minutes, page the on-call SRE and open an incident channel."
