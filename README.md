@@ -1,17 +1,10 @@
 # incident-runbook-cli
 
-Keeps incident runbooks as **structured YAML** instead of scattered wiki
-pages, renders them to Markdown on demand, and includes a small
-statistical helper for flagging outlier transaction amounts — the kind
-of quick triage check used while investigating anomalies in
-high-volume, mission-critical transaction data (PIX-style settlement
-flows).
+Keeps incident runbooks as YAML files next to the code instead of scattered wiki pages, and renders them to Markdown when needed. It also has a small statistical helper to flag outlier transaction amounts, the kind of quick check that helps when investigating anomalies in high-volume payment flows.
 
-## Why structured runbooks
+## Why YAML
 
-A wiki page drifts out of date silently. A YAML file next to the code
-gets reviewed in the same pull request as the alert it documents, diffs
-cleanly, and can be rendered/linted in CI.
+A wiki page goes out of date without anyone noticing. A YAML file in the repository is reviewed in the same pull request as the alert it describes, shows clean diffs, and can be validated in CI.
 
 ## Usage
 
@@ -31,7 +24,7 @@ steps:
 escalation: "If unresolved in 15 minutes, page the on-call SRE."
 ```
 
-Outlier flagging:
+Flagging outliers:
 
 ```python
 from runbook_cli.anomaly import Transaction, flag_amount_outliers
@@ -50,4 +43,4 @@ ruff check .
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
